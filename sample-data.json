@@ -1,0 +1,10 @@
+{
+  "aps": [
+    {"id":"ap-001","name":"AP - Recepção","ssid":"OpenWiFi_Rcp","channel":6,"clients":12,"traffic":[10,12,15,9,8,20]},
+    {"id":"ap-002","name":"AP - Escritório","ssid":"OpenWiFi_Esp","channel":11,"clients":24,"traffic":[30,25,28,35,27,40]},
+    {"id":"ap-003","name":"AP - Galpão","ssid":"OpenWiFi_Glp","channel":1,"clients":3,"traffic":[5,4,2,3,6,5]}
+  ],
+  "devices": [
+    {"name":"Rasp-Cliente-01","ip":"192.168.1.120","mac":"b8:27:eb:aa:bb:cc"}
+  ]
+}
