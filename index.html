@@ -1,77 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Open-WiFi — Painel</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open-Wifi</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <header>
-    <h1>Open-WiFi</h1>
-    <p class="subtitle">Painel de gerenciamento — protótipo client-side</p>
-  </header>
 
-  <main>
-    <section aria-labelledby="discover-title" class="card">
-      <h2 id="discover-title">1 — Descobrir dispositivo (visual)</h2>
-      <p>Simula o dispositivo que chega na rede (DHCP). Apenas visual — botão registra no sistema.</p>
-      <div class="controls">
-        <button id="btn-scan">Procurar dispositivo</button>
-        <span id="scan-status" role="status" aria-live="polite"></span>
-      </div>
-      <ul id="discovered-list" class="list" aria-label="dispositivos encontrados"></ul>
-    </section>
+    <!-- HAMBURGER MENU FOR MOBILE -->
+    <button class="hamburger">☰</button>
 
-    <section aria-labelledby="register-title" class="card">
-      <h2 id="register-title">2 — Registrar dispositivo</h2>
-      <form id="device-form" aria-label="formulário de cadastro de dispositivo">
-        <label>
-          Nome do dispositivo
-          <input type="text" id="device-name" required />
-        </label>
-        <label>
-          IP (ex.: 192.168.1.100)
-          <input type="text" id="device-ip" required />
-        </label>
-        <button type="submit">Cadastrar</button>
-        <span id="form-msg" role="status" aria-live="polite"></span>
-      </form>
-    </section>
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <h1 class="sidebar-title">Open-Wifi</h1>
+        <h5 class="sidebar-sub">Network Manage</h5>
 
-    <section aria-labelledby="aps-title" class="card">
-      <h2 id="aps-title">3 — APs cadastrados / redes</h2>
-      <div class="controls">
-        <button id="btn-add-ap">Adicionar AP (exemplo)</button>
-        <button id="btn-load-sample">Carregar sample-data.json (.then/.catch)</button>
-      </div>
-      <ul id="ap-list" class="list" aria-label="lista de pontos de acesso"></ul>
-    </section>
+        <nav class="sidebar-menu">
+            <ul>
+                <li data-section="ap"><a href="#">Access Point</a></li>
+                <li data-section="rdes"><a href="#">Redes</a></li>
+                <li data-section="discover"><a href="#">Descobrir dispositivos</a></li>
+                <li data-section="monitor"><a href="#">Monitoramento</a></li>
+                <li data-section="settings"><a href="#">Configurações</a></li>
+            </ul>
+        </nav>
 
-    <section aria-labelledby="dashboard-title" class="card">
-      <h2 id="dashboard-title">4 — Dashboard (Canvas)</h2>
-      <p>Gráfico simples de tráfego por AP — Canvas HTML5</p>
-      <canvas id="traffic-canvas" width="600" height="200" aria-label="gráfico de tráfego"></canvas>
-      <div class="controls">
-        <button id="btn-refresh-chart">Atualizar gráfico (async/await)</button>
-        <span id="chart-status" role="status" aria-live="polite"></span>
-      </div>
-    </section>
+    </aside>
 
-    <section aria-labelledby="storage-title" class="card">
-      <h2 id="storage-title">Persistência</h2>
-      <p>Os dispositivos e APs ficam salvos em <code>localStorage</code>.</p>
-      <div class="controls">
-        <button id="btn-export">Exportar como JSON</button>
-        <button id="btn-clear">Limpar armazenamento</button>
-      </div>
-    </section>
-  </main>
+    <!-- ÁREA PRINCIPAL — onde as páginas aparecerão -->
+    <main id="conteudo">
+        <h2>Bem-vindo ao Open-Wifi</h2>
+        <p>Selecione uma opção no menu para começar.</p>
+    </main>
 
-  <footer>
-    <small>Protótipo Open-WiFi — entregue por você ♥</small>
-  </footer>
-
-  <script src="app.js" defer></script>
+    <!-- JS -->
+    <script src="app.js"></script>
 </body>
+
 </html>
