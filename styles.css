@@ -1,44 +1,340 @@
-:root{
-  --bg:#0f1724;
-  --card:#0b1220;
-  --accent:#0ea5a4;
-  --text:#e6eef6;
-  --muted:#9fb0c3;
-  --radius:12px;
+/* LAYOUT GERAL */
+body {
+    margin: 0;
+    display: flex;
+    font-family: Arial, sans-serif;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:Inter,system-ui,Segoe UI,Arial;
-  background:
-    linear-gradient(180deg, rgba(14,20,32,1) 0%, rgba(5,9,14,1) 100%);
-  color:var(--text);
-  padding:1rem;
-  line-height:1.4;
-}
-header{display:flex;flex-direction:column;gap:.25rem;margin-bottom:1rem}
-h1{margin:0;font-size:1.4rem}
-.subtitle{margin:0;color:var(--muted);font-size:.9rem}
 
-main{display:grid;gap:1rem;grid-template-columns:1fr;max-width:1100px;margin:0 auto}
-.card{
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  padding:1rem;border-radius:var(--radius);
-  box-shadow:0 6px 18px rgba(2,6,23,0.6);
+/* MENU LATERAL */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #22344d;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    top: 0;
 }
-.controls{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.5rem}
-button{
-  background:var(--accent);border:none;padding:.5rem .75rem;border-radius:10px;
-  color:#032322;font-weight:600;cursor:pointer;
+
+.sidebar-title {
+    font-size: 22px;
+    margin-bottom: 25px;
+    font-weight: bold;
 }
-button[disabled]{opacity:.5;cursor:not-allowed}
-.list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem}
-.list li{background:rgba(255,255,255,0.02);padding:.5rem;border-radius:8px;display:flex;justify-content:space-between;align-items:center}
-label{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.5rem}
-input[type="text"]{padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:var(--text)}
-footer{margin-top:1rem;text-align:center;color:var(--muted)}
-@media(min-width:800px){
-  main{grid-template-columns:repeat(2,1fr)}
-  canvas{width:100%}
+
+.sidebar-sub {
+    font-size: 15px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    color:#9299a3
+}
+
+/* MENU */
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 12px;
+}
+
+.sidebar-menu a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/*.sidebar-menu a.active {
+    background: white;
+    color: #0b74ff;
+}*/
+
+/* ÁREA PRINCIPAL */
+#conteudo {
+    margin-left: 220px; /* deixa espaço para o menu */
+    padding: 20px;
+    width: calc(100% - 220px);
+    box-sizing: border-box;
+}
+
+/* CSS para cartões da página Access Point */
+
+.btn {
+    padding: 10px 15px;
+    background: #0b74ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.btn:hover {
+    background: #005ad1;
+}
+
+.ap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ap-card {
+    background: #f0f6ff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #d0dfff;
+}
+
+.ap-card h3 {
+    margin-top: 0;
+}
+
+.ap-card button {
+    margin-right: 10px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ap-card .editar {
+    background: #ffa600;
+    color: white;
+}
+
+.ap-card .editar:hover {
+    background: #cc8500;
+}
+
+.ap-card .excluir {
+    background: #ff3b3b;
+    color: white;
+}
+
+.ap-card .excluir:hover {
+    background: #d12d2d;
+}
+
+
+
+
+
+/* CARD DO ACCESS POINT */
+.ap-card {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #d9e6ff;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* STATUS */
+.ap-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: white;
+    font-weight: bold;
+}
+
+.ap-online { background: #00b83a; }
+.ap-atencao { background: #ffae00; }
+.ap-offline { background: #d93030; }
+
+/* INFORMACOES */
+.ap-local {
+    margin-top: -10px;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.ap-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 15px;
+    margin-bottom: 10px;
+}
+
+/* REDES */
+.ap-redes-box {
+    background: #f7faff;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d7e6ff;
+    margin-bottom: 15px;
+}
+
+.ap-redes-box ul {
+    margin: 5px 0 0 0;
+    padding-left: 18px;
+}
+
+/* BOTOES */
+.ap-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ap-buttons button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.configurar {
+    background: #0b74ff;
+}
+
+.reiniciar {
+    background: #ff7b00;
+}
+
+.remover {
+    background: #d93030;
+}
+
+
+
+
+
+/* CARD DO ACCESS POINT */
+.ap-card {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #d9e6ff;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* STATUS */
+.ap-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: white;
+    font-weight: bold;
+}
+
+.ap-online { background: #00b83a; }
+.ap-atencao { background: #ffae00; }
+.ap-offline { background: #d93030; }
+
+/* INFORMACOES */
+.ap-local {
+    margin-top: -10px;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.ap-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 15px;
+    margin-bottom: 10px;
+}
+
+/* REDES */
+.ap-redes-box {
+    background: #f7faff;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d7e6ff;
+    margin-bottom: 15px;
+}
+
+.ap-redes-box ul {
+    margin: 5px 0 0 0;
+    padding-left: 18px;
+}
+
+/* BOTOES */
+.ap-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ap-buttons button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.configurar {
+    background: #0b74ff;
+}
+
+.reiniciar {
+    background: #ff7b00;
+}
+
+.remover {
+    background: #d93030;
+}
+
+
+
+/* HEADER DOS APS */
+.ap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* BARRA DE PESQUISA */
+#ap-search {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #c4d4f7;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-right: 15px;
+    outline: none;
+}
+
+#ap-search:focus {
+    border-color: #0b74ff;
+    box-shadow: 0 0 0 2px rgba(11, 116, 255, 0.2);
+}
+
+/* BOTÃO ADICIONAR AP (CANTINHO DIREITO) */
+.add-ap-btn {
+    padding: 10px 16px;
+    background: #0b74ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-ap-btn:hover {
+    background: #005ad1;
 }
