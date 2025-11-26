@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nome": "AP Sala",
+        "local": "Sala Principal",
+        "ip": "192.168.0.10",
+        "mac": "AA:BB:CC:00:11:22",
+        "clientes": 14,
+        "sinal": -59,
+        "modelo": "UniFi U6 Lite",
+        "firmware": "v6.2.1",
+        "canal": 6,
+        "uptime": "2d 5h",
+        "redes": ["Corporate-Wifi", "Guest-Wifi"],
+        "status": "online"
+    },
+    {
+        "id": 2,
+        "nome": "AP Escritório",
+        "local": "2º Andar - Escritório",
+        "ip": "192.168.0.12",
+        "mac": "AA:BB:CC:33:44:55",
+        "clientes": 7,
+        "sinal": -71,
+        "modelo": "TP-Link EAP245",
+        "firmware": "v5.0.3",
+        "canal": 11,
+        "uptime": "6h 18m",
+        "redes": ["Corporate-Wifi"],
+        "status": "atencao"
+    }
+]
