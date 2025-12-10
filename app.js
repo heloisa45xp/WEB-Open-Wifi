@@ -98,7 +98,11 @@ function gerarPaginaAP() {
                         <option value="uptime">Uptime</option>
                         <option value="status">Status</option>
                     </select>
-                    <button id="ap-sort-dir" title="Alternar ordem">↑↓</button>
+                <button id="ap-sort-dir" title="Alternar ordem">↑↓</button>
+                </div>
+
+                <div class="ap-add-btn">
+                    <button id="add-ap-btn">Adicionar AP</button>
                 </div>
             </div>
 
@@ -163,6 +167,67 @@ function gerarPaginaAP() {
 
             <div id="ap-no-results" class="ap-no-results" style="display:none;">
                 Nenhum AP encontrado
+            </div>
+
+            <!-- Modal for adding new AP -->
+            <div id="add-ap-modal" class="modal">
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <h3>Adicionar Novo AP</h3>
+                    <form id="add-ap-form">
+                        <label for="ap-nome">Nome *</label>
+                        <input type="text" id="ap-nome" required>
+
+                        <label for="ap-ip">IP *</label>
+                        <input type="text" id="ap-ip" required>
+
+                        <label for="ap-mac">MAC *</label>
+                        <input type="text" id="ap-mac" required>
+
+                        <label for="ap-modelo">Modelo *</label>
+                        <input type="text" id="ap-modelo" required>
+
+                        <label for="ap-local">Locais *</label>
+                        <input type="text" id="ap-local" required>
+
+                        <label for="ap-redes">Redes vinculadas *</label>
+                        <div id="redes-selector" class="redes-selector">
+                            <input type="text" id="redes-filter" placeholder="Buscar redes...">
+                            <div id="redes-list" class="redes-list">
+                                <!-- populated dynamically -->
+                            </div>
+                        </div>
+
+                        <label for="ap-firmware">Firmware</label>
+                        <input type="text" id="ap-firmware">
+
+                        <label for="ap-canal">Canal</label>
+                        <input type="text" id="ap-canal">
+
+                        <label for="ap-country-code">Country-code</label>
+                        <input type="text" id="ap-country-code">
+
+                        <label for="ap-ap-id">AP ID</label>
+                        <input type="text" id="ap-ap-id">
+
+                        <label for="ap-vlan-gerencia">VLAN de gerência</label>
+                        <input type="text" id="ap-vlan-gerencia">
+
+                        <label for="ap-vlan-servico">VLAN de serviço</label>
+                        <input type="text" id="ap-vlan-servico">
+
+                        <label for="ap-forward-mode">Forward mode</label>
+                        <select id="ap-forward-mode">
+                            <option value="Tunnel">Tunnel</option>
+                            <option value="Direct Forward">Direct Forward</option>
+                        </select>
+
+                        <div class="modal-buttons">
+                            <button type="button" id="cancel-add-ap">Cancelar</button>
+                            <button type="submit">Criar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     `;
@@ -534,6 +599,113 @@ function gerarCardAP(ap) {
             state.modelo.forEach(v => addChip('modelo', `Modelo: ${v}`, v));
             state.redes.forEach(v => addChip('redes', `Rede: ${v}`, v));
         }
+
+        // Modal functionality
+        const addBtn = document.getElementById('add-ap-btn');
+        const modal = document.getElementById('add-ap-modal');
+        const form = document.getElementById('add-ap-form');
+        const cancelBtn = document.getElementById('cancel-add-ap');
+
+        // Redes selector
+        const redesFilter = document.getElementById('redes-filter');
+        const redesList = document.getElementById('redes-list');
+        let selectedRedes = [];
+
+        // Populate redes list
+        function populateRedesList(filter = '') {
+            const allRedes = [...new Set(accessPoints.flatMap(ap => ap.redes))];
+            const filteredRedes = allRedes.filter(rede => rede.toLowerCase().includes(filter.toLowerCase()));
+            redesList.innerHTML = filteredRedes.map(rede => `
+                <div class="rede-item ${selectedRedes.includes(rede) ? 'selected' : ''}" data-rede="${rede}">
+                    ${rede}
+                    <span>${selectedRedes.includes(rede) ? '✓' : ''}</span>
+                </div>
+            `).join('');
+        }
+
+        redesFilter.addEventListener('input', (e) => {
+            populateRedesList(e.target.value);
+        });
+
+        redesList.addEventListener('click', (e) => {
+            const item = e.target.closest('.rede-item');
+            if (item) {
+                const rede = item.dataset.rede;
+                if (selectedRedes.includes(rede)) {
+                    selectedRedes = selectedRedes.filter(r => r !== rede);
+                } else {
+                    selectedRedes.push(rede);
+                }
+                populateRedesList(redesFilter.value);
+            }
+        });
+
+        addBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+            populateRedesList();
+            selectedRedes = [];
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+            form.reset();
+            selectedRedes = [];
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nome = document.getElementById('ap-nome').value.trim();
+            const local = document.getElementById('ap-local').value.trim();
+            const ip = document.getElementById('ap-ip').value.trim();
+            const mac = document.getElementById('ap-mac').value.trim();
+            const modelo = document.getElementById('ap-modelo').value.trim();
+            const firmware = document.getElementById('ap-firmware').value.trim();
+            const canal = document.getElementById('ap-canal').value.trim();
+            const redes = document.getElementById('ap-redes').value.trim();
+            const status = document.getElementById('ap-status').value;
+
+            // Validation
+            if (!nome || !local || !ip || !mac || !modelo || selectedRedes.length === 0) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+            if (!ipRegex.test(ip)) {
+                alert('IP inválido.');
+                return;
+            }
+
+            const macRegex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+            if (!macRegex.test(mac)) {
+                alert('MAC inválido.');
+                return;
+            }
+
+            // Create new AP
+            const newId = Math.max(...accessPoints.map(ap => ap.id)) + 1;
+            const newAP = {
+                id: newId,
+                nome,
+                local,
+                ip,
+                mac,
+                clientes: 0,
+                sinal: -50,
+                modelo,
+                firmware: firmware || 'v1.0.0',
+                canal: canal || 'auto',
+                uptime: '0h',
+                redes: redes ? redes.split(',').map(r => r.trim()) : [],
+                status
+            };
+
+            accessPoints.push(newAP);
+            modal.classList.remove('show');
+            form.reset();
+            applyAndRender();
+        });
 
         applyAndRender();
     }
