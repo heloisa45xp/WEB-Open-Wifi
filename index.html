@@ -7,6 +7,9 @@
     <title>Open-Wifi</title>
 
     <!-- CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/ap.css">
+    <link rel="stylesheet" href="css/redes.css"><!-- NOVO -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -23,23 +26,26 @@
         <nav class="sidebar-menu">
             <ul>
                 <li data-section="ap"><a href="#">Access Point</a></li>
-                <li data-section="rdes"><a href="#">Redes</a></li>
+                <li data-section="redes"><a href="#">Redes</a></li> <!-- FIX -->
                 <li data-section="discover"><a href="#">Descobrir dispositivos</a></li>
                 <li data-section="monitor"><a href="#">Monitoramento</a></li>
                 <li data-section="settings"><a href="#">Configurações</a></li>
             </ul>
         </nav>
-
     </aside>
 
-    <!-- ÁREA PRINCIPAL — onde as páginas aparecerão -->
+    <!-- ÁREA PRINCIPAL -->
     <main id="conteudo">
         <h2>Bem-vindo ao Open-Wifi</h2>
         <p>Selecione uma opção no menu para começar.</p>
     </main>
 
     <!-- JS -->
-    <script src="app.js"></script>
+    <script src="js/ap.js" defer></script>
+    <script src="js/redes.js" defer></script>
+    <script src="app.js" defer></script>
+
+
 </body>
 
 </html>
