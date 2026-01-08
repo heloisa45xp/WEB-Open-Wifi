@@ -1,0 +1,20 @@
+[
+  {
+    "id": "net-001",
+    "ssid": "OpenWifi-Guests",
+    "security": { "type": "open", "password": null },
+    "vlan": 20,
+    "band": "2.4",
+    "status": "active",
+    "accessPoints": ["ap-001"]
+  },
+  {
+    "id": "net-002",
+    "ssid": "OpenWifi-Staff",
+    "security": { "type": "wpa3", "password": "********" },
+    "vlan": 10,
+    "band": "dual",
+    "status": "disabled",
+    "accessPoints": ["ap-001", "ap-002"]
+  }
+]
