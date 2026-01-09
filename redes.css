@@ -29,6 +29,8 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+    overflow: visible;
+    border: none;
 }
 
 .network-card {
@@ -36,50 +38,138 @@
     padding: 18px;
     border-radius: 12px;
     border: 1px solid #d9e6ff;
+    position: relative;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
 }
 
-.network-card h3 {
-    margin: 0 0 10px 0;
+.network-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-.network-meta {
+.network-ssid {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.network-toggle {
+    width: 40px;
+    height: 20px;
+    border-radius: 10px;
+    background: #ccc;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.network-toggle.active {
+    background: #00b83a;
+}
+
+.network-toggle.inactive {
+    background: #d93030;
+}
+
+.network-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.3s;
+}
+
+.network-toggle.active::after {
+    transform: translateX(20px);
+}
+
+.network-id {
+    margin-top: -10px;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 15px;
+    margin-bottom: 10px;
+}
+
+.info-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 13px;
+    color: #446085;
+    font-weight: 700;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #22344d;
+    font-weight: 600;
+}
+
+.network-badges {
+    display: flex;
+    gap: 8px;
     margin-bottom: 15px;
 }
 
-.network-meta span {
-    font-size: 14px;
+.badge {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: white;
+    font-weight: bold;
+}
+
+.badge.status-active {
+    background: #00b83a;
+}
+
+.badge.status-inactive {
+    background: #d93030;
+}
+
+.badge.aps-count {
+    background: #0b74ff;
 }
 
 .network-actions {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
 }
 
-.btn {
+.network-actions button {
     padding: 8px 12px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    color: white;
     font-weight: bold;
 }
 
-.btn.edit {
+.configure {
     background: #0b74ff;
-    color: white;
 }
 
-.btn.toggle {
+.view-aps {
     background: #ff7b00;
-    color: white;
 }
 
-.btn.delete {
+.remove {
     background: #d93030;
-    color: white;
 }
 
 /* Modal Styles */
