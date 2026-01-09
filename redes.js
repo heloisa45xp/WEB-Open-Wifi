@@ -26,8 +26,9 @@
                 security: rede.security.type.charAt(0).toUpperCase() + rede.security.type.slice(1), // Open, Wpa2, Wpa3 -> Open, WPA2, WPA3
                 vlan: rede.vlan,
                 band: rede.band === "2.4" ? "2.4 GHz" : (rede.band === "5" ? "5 GHz" : "Dual"),
-                aps: rede.accessPoints.length, // number
-                status: rede.status === "active" ? "Ativa" : "Desativada"
+                aps: rede.accessPoints, // array
+                connectedClients: Math.floor(Math.random() * 50) + 1, // mock
+                status: rede.status === "active" ? "Active" : "Inactive"
             }));
             console.log("Redes carregadas:", redes);
         } catch (error) {
@@ -50,7 +51,8 @@
         return `
         <div id="redes-section">
             <div class="redes-header">
-                <h2>Redes Wi-Fi</h2>
+                <h1 class="page-title">WiFi Networks</h1>
+                <p class="page-subtitle">Configure and manage your wireless networks</p>
                 <button id="btnCriarRede" class="btn-primary">+ Criar Rede</button>
             </div>
 
@@ -64,6 +66,9 @@
                 <div class="modal-content">
                     <h3 id="modal-title">Criar Rede</h3>
                     <form id="rede-form">
+                        <label for="rede-id">Network ID *</label>
+                        <input type="text" id="rede-id" required>
+
                         <label for="rede-ssid">SSID *</label>
                         <input type="text" id="rede-ssid" required>
 
@@ -113,11 +118,8 @@
             return;
         }
 
-        //   await carregarRedes();
-        // await carregarAccessPoints();
-        redes = [
-            { id: "net-001", ssid: "Teste", security: "WPA2", vlan: 10, band: "2.4 GHz", aps: 2, status: "Ativa" }
-        ];
+        await carregarRedes();
+        await carregarAccessPoints();
         renderRedes();
 
 
@@ -126,16 +128,23 @@
 
         document.getElementById("listaRedes").addEventListener("click", (e) => {
             const btn = e.target.closest("button");
-            if (!btn) return;
-            const card = btn.closest(".network-card");
-            const id = card.dataset.id;
+            if (btn) {
+                const card = btn.closest(".network-card");
+                const id = card.dataset.id;
 
-            if (btn.classList.contains("edit")) {
-                editRede(id);
-            } else if (btn.classList.contains("toggle")) {
+                if (btn.classList.contains("configure")) {
+                    editRede(id);
+                } else if (btn.classList.contains("view-aps")) {
+                    alert("View APs for network " + id);
+                } else if (btn.classList.contains("remove")) {
+                    deleteRede(id);
+                }
+            }
+
+            const toggle = e.target.closest(".network-toggle");
+            if (toggle) {
+                const id = toggle.dataset.id;
                 toggleStatus(id);
-            } else if (btn.classList.contains("delete")) {
-                deleteRede(id);
             }
         });
 
@@ -182,16 +191,11 @@
         if (rede) {
             editingId = rede.id;
             title.textContent = "Editar Rede";
+            document.getElementById("rede-id").value = rede.id;
             document.getElementById("rede-ssid").value = rede.ssid;
             document.getElementById("rede-security").value = rede.security;
             document.getElementById("rede-vlan").value = rede.vlan;
             document.getElementById("rede-band").value = rede.band;
-            // For APs, need to set selectedAps based on rede.aps, but since aps is number, perhaps need to store the array.
-            // For simplicity, since mock, assume selectedAps = [] for edit, or add a field.
-            // To make it work, perhaps change aps to array in the model.
-            // For now, since prompt says number or array, but for edit, let's assume we need the list.
-            // In the JSON, it's array, so in the model, keep aps as array.
-            // Change the model to aps: rede.accessPoints
             selectedAps = rede.aps || [];
         } else {
             editingId = null;
@@ -233,33 +237,35 @@
 
 
     function saveRede() {
+        const id = document.getElementById("rede-id").value.trim();
         const ssid = document.getElementById("rede-ssid").value.trim();
         const security = document.getElementById("rede-security").value;
         const vlan = parseInt(document.getElementById("rede-vlan").value);
         const band = document.getElementById("rede-band").value;
 
-        if (!ssid || !security || isNaN(vlan) || !band || selectedAps.length === 0) {
+        if (!id || !ssid || !security || isNaN(vlan) || !band || selectedAps.length === 0) {
             alert("Preencha todos os campos obrigatórios.");
             return;
         }
 
         if (editingId) {
             const rede = redes.find(r => r.id === editingId);
+            rede.id = id;
             rede.ssid = ssid;
             rede.security = security;
             rede.vlan = vlan;
             rede.band = band;
-            rede.aps = selectedAps.length; // update count
+            rede.aps = selectedAps; // array
         } else {
-            const newId = "net-" + (redes.length + 1).toString().padStart(3, '0');
             redes.push({
-                id: newId,
+                id,
                 ssid,
                 security,
                 vlan,
                 band,
-                aps: selectedAps.length,
-                status: "Ativa"
+                aps: selectedAps, // array
+                connectedClients: Math.floor(Math.random() * 50) + 1,
+                status: "Active"
             });
         }
 
@@ -297,7 +303,7 @@
     function toggleStatus(id) {
         const rede = redes.find(r => r.id === id);
         if (rede) {
-            rede.status = rede.status === "Ativa" ? "Desativada" : "Ativa";
+            rede.status = rede.status === "Active" ? "Inactive" : "Active";
             renderRedes();
         }
     }
@@ -311,18 +317,37 @@
         const lista = document.getElementById("listaRedes");
         lista.innerHTML = redes.map(rede => `
         <div class="network-card" data-id="${rede.id}">
-            <h3>${rede.ssid}</h3>
-            <div class="network-meta">
-                <span>Segurança: ${rede.security}</span>
-                <span>VLAN: ${rede.vlan}</span>
-                <span>Banda: ${rede.band}</span>
-                <span>APs: ${Array.isArray(rede.aps) ? rede.aps.length : rede.aps}</span>
-                <span>Status: ${rede.status}</span>
+            <div class="network-header">
+                <h3 class="network-ssid">${rede.ssid}</h3>
+                <div class="network-toggle ${rede.status === "Active" ? "active" : "inactive"}" data-id="${rede.id}"></div>
+            </div>
+            <div class="network-id">ID: ${rede.id}</div>
+            <div class="info-grid">
+                <div class="info-block">
+                    <div class="info-label">Security</div>
+                    <div class="info-value">${rede.security}</div>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">Band</div>
+                    <div class="info-value">${rede.band}</div>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">VLAN ID</div>
+                    <div class="info-value">${rede.vlan}</div>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">Connected Clients</div>
+                    <div class="info-value">${rede.connectedClients}</div>
+                </div>
+            </div>
+            <div class="network-badges">
+                <span class="badge status-${rede.status.toLowerCase()}">${rede.status}</span>
+                <span class="badge aps-count">${Array.isArray(rede.aps) ? rede.aps.length : rede.aps} APs</span>
             </div>
             <div class="network-actions">
-                <button class="btn edit">Editar</button>
-                <button class="btn toggle">${rede.status === "Ativa" ? "Desativar" : "Ativar"}</button>
-                <button class="btn delete">Excluir</button>
+                <button class="btn configure">Configure</button>
+                <button class="btn view-aps">View APs</button>
+                <button class="btn remove">Remove</button>
             </div>
         </div>
     `).join("");
