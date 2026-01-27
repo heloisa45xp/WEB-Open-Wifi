@@ -34,31 +34,8 @@ Devo resaltar que aqui apenas conta o Font-End do projeto, o Back-End e APIs ain
 * JSON (simulação de backend)
 
 
-## 📂 Estrutura do Projeto
-/Open-WIFI
-│── index.html
-│── login.html
-│── signup.html
-│── css/
-│   ├── ap.css
-│   ├── base.css
-│   ├── login.css
-│   ├── redes.css
-│   ├── dashboard.css
-│   ├── signup.css
-│── js/
-│   ├── ap.js
-│   ├── dashboard.js
-│   ├── login.js
-│   ├── redes.js
-│   ├── signup.js
-│── app.js
-│── accesspoints.json
-│── redes.json
-│── styles.css
-│── sool.jpg
-│── wifi_icon.png
-│── README.md
+<img width="772" height="415" alt="image" src="https://github.com/user-attachments/assets/43f5cca5-62b4-4478-ba1f-784748acc714" />
+
 
 
 ## ✅ Checklist de Conformidade
