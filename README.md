@@ -34,7 +34,8 @@ Devo resaltar que aqui apenas conta o Font-End do projeto, o Back-End e APIs ain
 * JSON (simulação de backend)
 
 
-<img width="772" height="415" alt="image" src="https://github.com/user-attachments/assets/43f5cca5-62b4-4478-ba1f-784748acc714" />
+<img width="397" height="613" alt="image" src="https://github.com/user-attachments/assets/95197109-668e-4e23-8e22-f6bb58fe3da7" />
+
 
 
 
