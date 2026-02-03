@@ -1,0 +1,150 @@
+/* Dashboard Styles */
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.dashboard-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #5d2421;
+    margin: 0;
+}
+
+.dashboard-subtitle {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    color: #a8617c;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* CARDS */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.summary-card {
+    background: #ffffff;
+    border: 1px solid #ffe8e8;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.summary-card-title {
+    font-size: 14px;
+    color: #97355e;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.summary-card-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #762b4c;
+    margin-bottom: 5px;
+}
+
+.summary-card-desc {
+    font-size: 12px;
+    color: #a8617c;
+}
+
+.network-status-container {
+    background: #ffffff;
+    border: 1px solid #ffe8e8;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+.network-status-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #97355e;
+    margin-bottom: 5px;
+}
+
+.network-status-subtitle {
+    font-size: 14px;
+    color: #a8617c;
+    margin-bottom: 20px;
+}
+
+.network-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.network-item {
+    padding: 15px;
+    border: 1px solid #ffe8e8;
+    border-radius: 8px;
+    background: #fff8fc;
+}
+
+.network-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.network-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #762b4c;
+}
+
+.network-status {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+}
+
+.network-status.online {
+    background: #7e96ed;
+}
+
+.network-status.offline {
+    background: #e263a0;
+}
+
+.network-details {
+    font-size: 14px;
+    color: #a8617c;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+

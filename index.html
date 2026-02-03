@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open-Wifi</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/ap.css">
@@ -18,32 +28,62 @@
     <!-- HAMBURGER MENU FOR MOBILE -->
     <button class="hamburger">☰</button>
 
-    <!-- MENU LATERAL -->
+    <!-- MENU LATERAL BEM AQUI -->
     <aside class="sidebar">
         <h1 class="sidebar-title">Open-Wifi</h1>
         <h5 class="sidebar-sub">Network Manage</h5>
 
         <nav class="sidebar-menu">
             <ul>
+                <li data-section="dashboard"><a href="#">Dashboard</a></li>
                 <li data-section="ap"><a href="#">Access Point</a></li>
-                <li data-section="redes"><a href="#">Redes</a></li> <!-- FIX -->
-                <li data-section="discover"><a href="#">Descobrir dispositivos</a></li>
+                <li data-section="redes"><a href="#">Redes</a></li>
+                <li data-section="discover"><a href="#">Descobrir Dispositivo</a></li>
                 <li data-section="monitor"><a href="#">Monitoramento</a></li>
-                <li data-section="settings"><a href="#">Configurações</a></li>
             </ul>
         </nav>
+
+        <!-- GIF NO RODAPÉ DO MENU -->
+        <div class="sidebar-footer">
+
+
+        </div>
     </aside>
+
 
     <!-- ÁREA PRINCIPAL -->
     <main id="conteudo">
-        <h2>Bem-vindo ao Open-Wifi</h2>
-        <p>Selecione uma opção no menu para começar.</p>
+
+        <p id="loading">Carregando...</p>
+        <p id="erro" style="display:none;color:red;">
+            Erro ao carregar dados
+        </p>
+
+        <div id="lista-aps"></div>
+
     </main>
+
+
+    <!-- Authentication Check -->
+    <script>
+        // Check if user is authenticated
+        const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+        if (!isAuthenticated) {
+            window.location.href = 'login.html';
+        }
+    </script>
 
     <!-- JS -->
     <script src="js/ap.js" defer></script>
     <script src="js/redes.js" defer></script>
     <script src="app.js" defer></script>
+
+    <script>
+        // Set dashboard as default section on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarSecao('dashboard');
+        });
+    </script>
 
 
 </body>

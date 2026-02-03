@@ -1,7 +1,7 @@
 [
   {
     "id": "net-001",
-    "ssid": "OpenWifi-Guests",
+    "ssid": "Raspberry-Wifi",
     "security": { "type": "open", "password": null },
     "vlan": 20,
     "band": "2.4",
@@ -10,11 +10,48 @@
   },
   {
     "id": "net-002",
-    "ssid": "OpenWifi-Staff",
+    "ssid": "Guest-Wifi",
     "security": { "type": "wpa3", "password": "********" },
     "vlan": 10,
     "band": "dual",
     "status": "disabled",
     "accessPoints": ["ap-001", "ap-002"]
+  },
+  {
+    "id": "net-003",
+    "ssid": "Corporate-Wifi",
+    "security": { "type": "wpa3", "password": null },
+    "vlan": 10,
+    "band": "dual",
+    "status": "active",
+    "accessPoints": ["ap-001", "ap-002"]
+  },
+  {
+    "id": "net-004",
+    "ssid": "G-redes",
+    "security": { "type": "wpa3", "password": "********" },
+    "vlan": 10,
+    "band": "dual",
+    "status": "active",
+    "accessPoints": ["ap-001", "ap-002"]
+  },
+  {
+    "id": "net-005",
+    "ssid": "Eduroam",
+    "security": { "type": "wpa3", "password": "********" },
+    "vlan": 10,
+    "band": "dual",
+    "status": "active",
+    "accessPoints": ["ap-001", "ap-002"]
   }
+
+
+
+
+
+
+
+
+
+
 ]
